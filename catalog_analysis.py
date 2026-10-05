@@ -104,6 +104,18 @@ def make_slug(title):
 def format_report_line(movie):
   return f'"{normalize_title(movie['title'])}" ({movie['year']}) - {movie['rating']}/10, {duration_in_hours(movie['duration_min'])}, жанры: {', '.join(sorted(movie['genres']))}'
 
+def titles_sorted_by_rating(movies):
+  sort_list = sorted(movies, key=lambda movie:movie['rating'], reverse=True)
+  return [normalize_title(mov['title']) for mov in sort_list]
+
+def top_n_by_rating(movies, n=3):
+  list_tuple = []
+  sort_list = sorted(movies, key=lambda movie:movie['rating'], reverse=True)
+  for i in range(min(n, len(movies))):
+    list_tuple.append((normalize_title(sort_list[i]['title']), sort_list[i]['rating']))
+  return list_tuple
+
+
 
 if __name__ == "__main__":
     main()
