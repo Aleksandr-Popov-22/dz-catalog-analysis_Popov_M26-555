@@ -64,7 +64,28 @@ def decade_label(year):
     case _ if year < 2015 :
       return 'старые'
 
+def print_non_comedy_titles(movies):
+  for item in movies:
+    if 'comedy' in item['genres']:
+      continue
+    print(normalize_title(item['title']))   
 
+def find_first_masterpiece(movies):
+  item = 0
+  while item < len(movies):
+    if movies[item]['rating'] > 9.0 :
+      print(movies[item]['title'])
+      break
+    item += 1
+  else:
+    print('Шедевров не найдено')
+
+def count_long_movies(movies, threshold=120):
+  sum = 0
+  for mov in movies:
+    if mov['duration_min'] > threshold:
+      sum += 1
+  print(f'Фильмов, длиннее {threshold} минут {sum}')
 
 
 
