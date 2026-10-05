@@ -115,7 +115,26 @@ def top_n_by_rating(movies, n=3):
     list_tuple.append((normalize_title(sort_list[i]['title']), sort_list[i]['rating']))
   return list_tuple
 
+def count_by_genre(movies):
+  dict_genres = {}
+  for mov in movies:
+    for gen in mov['genres']:
+      dict_genres[gen] = dict_genres.get(gen, 0) + 1
+  return dict_genres
 
+
+def actor_filmography(movies):
+  dict_actors = {}
+
+  for mov in movies:
+    for actor in mov['actors']:
+      if actor not in dict_actors:
+        dict_actors[actor] = []
+      dict_actors[actor].append(normalize_title(mov['title']))
+  return dict_actors
+
+def good_film(movies):
+  return {normalize_title(mov['title']): mov['rating'] for mov in movies if mov['rating'] > average_rating(movies)}
 
 if __name__ == "__main__":
     main()
