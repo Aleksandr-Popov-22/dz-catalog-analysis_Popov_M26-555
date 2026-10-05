@@ -87,8 +87,22 @@ def count_long_movies(movies, threshold=120):
       sum += 1
   print(f'Фильмов, длиннее {threshold} минут {sum}')
 
+def normalize_title(title):
+  str = ''
+  words = title.split()
+  for word in words:
+    str += word[0].upper() + word[1:].lower() + ' '
+  return str.strip()
 
+def make_slug(title):
+  str = ''
+  words = title.split()
+  for word in words:
+    str += word.lower() + ' '
+  return str.strip().replace(' ', '-')
 
+def format_report_line(movie):
+  return f'"{normalize_title(movie['title'])}" ({movie['year']}) - {movie['rating']}/10, {duration_in_hours(movie['duration_min'])}, жанры: {', '.join(sorted(movie['genres']))}'
 
 
 if __name__ == "__main__":
