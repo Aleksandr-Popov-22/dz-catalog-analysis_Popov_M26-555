@@ -136,5 +136,26 @@ def actor_filmography(movies):
 def good_film(movies):
   return {normalize_title(mov['title']): mov['rating'] for mov in movies if mov['rating'] > average_rating(movies)}
 
+def all_genres(movies):
+  all_gen = set()
+  for mov in movies:
+    all_gen.update(mov['genres'])
+  return all_gen
+
+def common_actors(movie1, movie2):
+  return set(movie1['actors']) & set(movie2['actors'])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    a = set()
+    b = set()
+    for mov in movies_a:
+        a.update(mov['genres'])
+    for mov in movies_b:
+        b.update(mov['genres'])
+    return a - b
+
+
+
 if __name__ == "__main__":
     main()
