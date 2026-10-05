@@ -1,8 +1,5 @@
 import math
 
-def main():
-  print('its main')
-
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
@@ -160,8 +157,6 @@ def iter_high_rated(movies, min_rating=8.0):
     if mov['rating'] >= min_rating:
       yield mov
 
-for movie in iter_high_rated(movies):
-    print(format_report_line(movie))
 
 
 sum(m["duration_min"] for m in movies if m["rating"] > 7)
@@ -178,9 +173,9 @@ def build_report(movies):
   
 
   print(f'''\nФильмов по жанрам:
-  {"\n  ".join(f"{genre} - {count}" for genre, count in count_by_genre(movies).items())}
+  {"\n  ".join(f"{genre} - {count}" for genre, count in sorted(count_by_genre(movies).items(), key=lambda item: item[1], reverse=True))}
 
 Все жанры каталога: {", ".join(sorted(all_genres(movies)))}''')
 
 if __name__ == "__main__":
-    main()
+    build_report(movies)
